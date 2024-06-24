@@ -8,6 +8,7 @@ on:
 
 jobs:
   cd:
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -31,4 +32,4 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        run: npm run deploy -- -r git@github.com:Alber-Writer/auto-github-deploy.git
+        run: npm run deploy -- -r git@github.com:Alber-Writer/lemoncode-cloud-lab-basic-auto.git
