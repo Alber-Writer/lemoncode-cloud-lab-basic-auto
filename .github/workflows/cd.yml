@@ -8,23 +8,11 @@ on:
 
 jobs:
   cd:
-    if: github.event.pull_request.merged
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Install
-        run:
-          npm ci
-
-      - name: Build
-        run:
-          npm run build
-
-      - name: Deploy
-        run:
-          npm run deploy
 
       - name: Use SSH key
         run: |
@@ -36,6 +24,12 @@ jobs:
         run: |
           git config --global user.email "cd-user@my-app.com"
           git config --global user.name "cd-user"
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
 
       - name: Deploy
         run: npm run deploy -- -r git@github.com:Alber-Writer/auto-github-deploy.git
